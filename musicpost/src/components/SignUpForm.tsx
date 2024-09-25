@@ -2,13 +2,17 @@
 
 import React, { useState } from 'react'
 import '../styles/signUp.css';
-
+import { FormSchemaData } from '@/validations/schema';
+import { useRouter } from 'next/navigation';
 
 interface ErrorType {
     [key : string] : string;
 }
 
+
 const signUpForm = () => {
+    
+    const router = useRouter();
 
     const [formUp , setFormUp] = useState({
         username  : '',
@@ -30,7 +34,7 @@ const signUpForm = () => {
         setFieldError({});
 
         try {
-            const response = await fetch('http://localhost:3000/signUp' , {
+            const response = await fetch("http://localhost:3000/api/signup" , {
                 method : 'POST',
                 headers : {
                     'Content-Type' : 'application/json',
@@ -38,25 +42,38 @@ const signUpForm = () => {
                 body : JSON.stringify(formUp),
             });
 
-            if(!response.ok){
+            console.log("response!!!!" , response);
+            
+            if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(`Http error! status : ${response.status}`);
+                console.log("This is errorData:", errorData);
+                if (Array.isArray(errorData.errors) && errorData.error === 'validation error') {
+                    const newFieldErrors: ErrorType = {};
+                    errorData.errors.forEach((err: { path : string[]; message: string }) => {
+                        const fieldName = String(err.path);
+                        newFieldErrors[fieldName] = err.message;
+                    });
+                    setFieldError(newFieldErrors);
+                    console.error("Validation errors (newFieldErrors):", newFieldErrors);
+                } else {
+                    const newFieldErrors : ErrorType = {};
+                    const fieldName = 'username';
+                    newFieldErrors[fieldName] = errorData.error;
+                    // console.log(newFieldErrors);
+                    setFieldError(newFieldErrors);
+                }
+            } else {
+                console.log("sucuess! register!");
+                router.push('/home');
             }
-
-            const data = await response.json();
-            console.log('response data' , data);
-            setFormUp({
-                username  : '',
-                password : '',
-                email : '',
-                confPass : '',
-            });
+            
         } catch (error : unknown) {
             if(error instanceof Error) {
                 console.error('error signUp' , error.message); 
                 setFieldError({message : error.message});
             } else {
                 console.error('unknown error' , error);
+                router.push('/home');
             }
         }
     }
@@ -64,7 +81,7 @@ const signUpForm = () => {
     return (
         <div className='signUp'>
             <div className='form-contents'>
-                <form name='form-signUp' onSubmit={handleSubmit}>
+                <form name='form-signUp' onSubmit={handleSubmit} action='/signup' autoComplete="off">
                     <div className='app-user'>
                         <input required type='text'
                         placeholder='ユーザー名'
@@ -78,7 +95,7 @@ const signUpForm = () => {
                             </div>
                         )}
                         <input required type='text'
-                        placeholder='emailを登録してください'
+                        placeholder='email'
                         value={formUp.email}
                         name='email'
                         onChange={handleChange}></input>
@@ -88,7 +105,7 @@ const signUpForm = () => {
                             </div>
                         )}
                         <input required type='password'
-                        placeholder='パスワード(8文字以上)'
+                        placeholder='パスワード(8文字以上で,数字とa~zの両方1つ以上)'
                         value={formUp.password}
                         name='password'
                         onChange={handleChange}></input>
