@@ -41,7 +41,7 @@ export async function POST(request : NextRequest){
             );
         } else {
             return NextResponse.json(
-                {error : "ユーザー名かパスワードが正しくありません!"},
+                {error : "ユーザー名かパスワードが正しくありません"},
                 {status : 404}
             );
         }
