@@ -34,7 +34,7 @@
 .app-user {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
@@ -61,10 +61,10 @@ button[type = 'submit'] {
     font-size: 1rem;
     cursor: pointer;
     transition :  background-color 0.3s;
-    background-color: #3b82f6;
+    background-color:  #10b981; 
     max-width: 200px;
 }
 
 button[type="submit"]:hover {
-    background-color: #2563eb;
-  }
+    background-color: #059669;
+    }

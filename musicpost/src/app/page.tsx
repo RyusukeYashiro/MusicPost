@@ -8,7 +8,7 @@ const Home = () => {
             <h1>ようこそmusicPostへ!</h1>
             <p>アカウントにログインか、新規登録</p>
             <div className="button-container">
-            <Link href='/login'>
+            <Link href='/Login'>
                 <button className="button login-button">
                 ログイン
                 </button>
