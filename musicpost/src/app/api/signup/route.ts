@@ -16,8 +16,8 @@ export async function POST(request : NextRequest){
         //重複しているユーザーがいないかチェックする処理
         //検索を早めるためにlimit 1をつける
         const [exitUser]  = await db.query(
-            'SELECT * FROM users WHERE email = ? limit 1',
-            [validation.email]
+            'SELECT * FROM users WHERE name = ? limit 1',
+            [validation.username]
         );
 
         if(Array.isArray(exitUser) && exitUser.length > 0){

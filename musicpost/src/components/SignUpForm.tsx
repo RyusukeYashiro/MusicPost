@@ -5,7 +5,7 @@ import '../styles/signUp.css';
 import { FormSchemaData } from '@/validations/schema';
 import { useRouter } from 'next/navigation';
 
-interface ErrorType {
+export interface ErrorType {
     [key : string] : string;
 }
 
@@ -66,7 +66,7 @@ const signUpForm = () => {
                 console.log("sucuess! register!");
                 router.push('/home');
             }
-            
+
         } catch (error : unknown) {
             if(error instanceof Error) {
                 console.error('error signUp' , error.message); 
