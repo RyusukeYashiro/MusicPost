@@ -64,7 +64,7 @@ const signUpForm = () => {
                 }
             } else {
                 console.log("sucuess! register!");
-                router.push('/home');
+                router.push('/homePost');
             }
 
         } catch (error : unknown) {
@@ -73,7 +73,7 @@ const signUpForm = () => {
                 setFieldError({message : error.message});
             } else {
                 console.error('unknown error' , error);
-                router.push('/home');
+                router.push('/homePost');
             }
         }
     }

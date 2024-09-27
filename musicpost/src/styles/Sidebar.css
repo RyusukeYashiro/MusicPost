@@ -1,0 +1,56 @@
+.App {
+    width: 100%;
+    height: 100vh;
+    display: flex; /* Appコンテナをflexboxにする */
+}
+
+.Sidebar {
+    height: 100%;
+    width: 200px;
+    background-color: rgb(4, 70, 110);
+}
+
+.SidebarList {
+    height: auto;
+    padding: 0;
+    width: 100%;
+    list-style-type: none; /* リストのデフォルトスタイルを削除 */
+    margin: 0; /* デフォルトマージンを削除 */
+}
+
+.SidebarList .row {
+    width: 100%;
+    height: 80px;
+    color: aliceblue;
+    display: flex; /* Flexboxを使用 */
+    align-items: center; /* 垂直方向の中央揃え */
+}
+
+.SidebarList .row a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.sidebarItem {
+    display: flex;
+    align-items: center; /* 垂直方向の中央揃え */
+    width: 100%;
+}
+
+.sidebarItem #icon {
+    flex: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebarItem #title {
+    flex: 70%;
+}
+
+.SidebarList .row:hover {
+    cursor: pointer;
+    background-color: rgb(7, 112, 177);
+}

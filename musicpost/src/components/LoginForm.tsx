@@ -47,7 +47,7 @@ const LoginForm = () => {
         } 
       } else {
         console.log("success!");
-        router.push('/home');
+        router.push('/homePost');
       }
       
     } catch (err : unknown) {
