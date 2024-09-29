@@ -9,7 +9,6 @@
 }
 
 .title-search-wrapper {
-    display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -20,6 +19,8 @@
     align-items: center;
     overflow: hidden;
     border-radius: 3px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .search-form input {
@@ -57,7 +58,7 @@
 .post-form {
     width: 100%;
     text-align: center;
-    margin-top: 900px;
+    margin-top: 20px;
 }
 
 
@@ -118,3 +119,47 @@
 	border-bottom: 2px solid #fff;
 	transform: translateY(3px);
 }
+
+.music-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.music-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.music-select input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.music-select {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.cancel-select {
+    margin-top: 10px;
+    width: 100%;
+    padding: 0.5rem 0;
+    border: none;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition :  background-color 0.3s;
+    background-color:  #f65a3b;
+    max-width: 80px;
+}
+
+.cancel-select:hover {
+    background-color: #eb2525;
+  }
