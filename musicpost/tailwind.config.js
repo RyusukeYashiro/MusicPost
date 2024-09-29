@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    ".src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}", // この行を修正
   ],
   theme: {
     extend: {},
