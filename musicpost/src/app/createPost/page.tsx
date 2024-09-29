@@ -1,4 +1,4 @@
-import PostModal from "@/components/Postmodal";
+import PostModal from "../../components/PostCreate/Postmodal";
 
 
 const  createpost = () => {
