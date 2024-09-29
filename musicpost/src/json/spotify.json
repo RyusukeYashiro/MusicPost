@@ -1,0 +1,21 @@
+{
+    "items" : [ {
+        "album" : {
+            "images" : [ {
+                "url" : ""
+            } ]
+        },
+        "artists" : [ {
+            "external_urls" : {
+                "spotify" : "https://open.spotify.com/artist/1snhtMLeb2DYoMOcVbb8iB"
+            },
+            "name" : "Kenshi Yonezu"
+        } ],
+        "id" : "3KnURrjsXA0TDce8N7iOwz",
+        "name" : "灰色と青 ( + 菅田将暉 )",
+        "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/3KnURrjsXA0TDce8N7iOwz"
+        },
+        "preview_url" : "https://p.scdn.co/mp3-preview/dc5fb11ca544eaf1ad6a82e63ff781803c0ed361?cid=0164b6fbf8d049da87ac4e4b23fd3ae1"
+    }]
+}
