@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import '../styles/signUp.css';
+import '../../styles/signUp.css';
 import { FormSchemaData } from '@/validations/schema';
 import { useRouter } from 'next/navigation';
 
@@ -34,7 +34,7 @@ const signUpForm = () => {
         setFieldError({});
 
         try {
-            const response = await fetch("http://localhost:3000/api/signup" , {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signup` , {
                 method : 'POST',
                 headers : {
                     'Content-Type' : 'application/json',
@@ -64,7 +64,7 @@ const signUpForm = () => {
                 }
             } else {
                 console.log("sucuess! register!");
-                router.push('/homePost');
+                router.push('/Login');
             }
 
         } catch (error : unknown) {
