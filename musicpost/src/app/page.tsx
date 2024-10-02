@@ -23,6 +23,7 @@ const Home = () => {
             <a href="#" className="forgot-password">
                 パスワードを忘れましたか？
             </a>
+            <div>!パスワードはハッシュ化して保存!</div>
             </footer>
         </div>
     </div>
