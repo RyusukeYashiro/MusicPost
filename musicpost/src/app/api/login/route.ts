@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from 'bcrypt';
 import { RowDataPacket } from "mysql2";
-import { error } from "console";
+import jwt from 'jsonwebtoken';
+import {Config} from './config';
 
 interface User extends RowDataPacket {
     id: number;
@@ -12,7 +13,18 @@ interface User extends RowDataPacket {
     // 他の必要なフィールドを追加
 }
 
-export async function POST(request : NextRequest){
+interface JwtType {
+    secret: string;
+    options: {
+        algorithm: jwt.Algorithm;
+        expiresIn: string;
+    }
+}
+
+const jwtConfig: JwtType = Config.jwt;
+
+
+export async function POST(request : NextRequest , res : NextResponse){
     try {
         const body = await request.json();
         console.log("リクエストをオブジェクトとする" , body);
@@ -34,17 +46,38 @@ export async function POST(request : NextRequest){
         console.log("this is pass" , body.password);
         const isPass = await bcrypt.compare(body.password , user.password);
         console.log(isPass);
-        if(isPass){
+
+        //サーバーサイドへのresponseにcookieをセットして紐付ける。
+        if (!isPass) {
             return NextResponse.json(
-                {message : 'ユーザーが正しく作成されました'},
-                {status : 200}
-            );
-        } else {
-            return NextResponse.json(
-                {error : "ユーザー名かパスワードが正しくありません"},
-                {status : 404}
+                { error: "ユーザー名かパスワードが正しくありません" },
+                { status: 401 }
             );
         }
+
+        //暗号化する中身
+        const payload = {
+            username: user.username,
+            id: user.id
+        };
+
+        const token = jwt.sign(payload, jwtConfig.secret, jwtConfig.options);
+
+        const response = NextResponse.json(
+            { message: 'ログインに成功しました' },
+            { status: 200 }
+        );
+        //next.jsではsetを使用。
+        // そしてこれをクライアントサイドにクッキーとして情報を渡している。
+        response.cookies.set('jwt', token, {
+            path: "/",
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 3600,
+        });
+
+        return response;
     } catch(err) {
         if(err instanceof SyntaxError) {
             return NextResponse.json(
