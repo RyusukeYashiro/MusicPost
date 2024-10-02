@@ -40,6 +40,7 @@ export async function POST(request : NextRequest){
                 {message : 'ユーザーが正しく作成されました'},
                 {status : 200}
             );
+            
         } else {
             return NextResponse.json(
                 { error: 'ユーザーの作成に失敗しました' },

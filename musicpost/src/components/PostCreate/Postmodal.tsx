@@ -93,7 +93,7 @@ const PostModal: React.FC = () => {
         audioRef?.current?.pause();
         setSelectMusic(null);
         try {
-            const response = await fetch('http://localhost:3000/api/spotify/search' , {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/spotify/search` , {
                 method : 'POST',
                 headers : {
                     'Content-Type' : 'application/json'
@@ -102,12 +102,7 @@ const PostModal: React.FC = () => {
             });
 
             if(!response.ok) {
-                const errorData = await response.json();
-                console.error('response error!' , errorData);
-                return NextResponse.json(
-                    {error : 'Http error!'},
-                    {status : response.status}
-                );
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
             //response情報が載っている。
@@ -131,10 +126,36 @@ const PostModal: React.FC = () => {
         }
     }
 
-    const handleSubmit = (e : React.FormEvent) => {
+    const handleSubmit = async(e : React.FormEvent) => {
+        
+        if (!selectMusic || !comment.trim()) {
+            throw new Error('音楽と感想を入力してください。');
+        }
         //dbに保存する処理。ユーザーと紐付ける必要がある。
         //つまりユーザーのログイン情報を使う。
         e.preventDefault();
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/PostMusic` , {
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/json'
+                },
+                body : JSON.stringify({query1 : selectMusic , query2 : comment})
+            });
+    
+            if(!response.ok){
+                throw new Error(`HTTP error! status: ${response.status}`);
+            };
+
+            const data = await response.json();
+            console.log("success! create post" , data);
+            setSelectMusic(null);
+            setSearchMusic('');
+            setComment('');
+            router.push('/createPost');
+        } catch(err) {
+            console.error("error api call" , err);
+        };
     }
 
     return (
