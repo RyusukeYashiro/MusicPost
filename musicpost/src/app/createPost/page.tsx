@@ -1,12 +1,11 @@
 import PostModal from "../../components/PostCreate/Postmodal";
 
-
-const  createpost = () => {
+const createpost = () => {
   return (
-    <div className='modalCover'>
-        <PostModal/>
+    <div className="modalCover">
+      <PostModal />
     </div>
-    );
-}
+  );
+};
 
 export default createpost;
