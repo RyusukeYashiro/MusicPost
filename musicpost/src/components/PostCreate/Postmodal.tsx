@@ -11,6 +11,8 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { SpotifyApiTrack } from "../../types/spotifyApiTrack";
 import { MappedTrack } from "../../types/mappedTrack";
+import { handlePlayPause } from "@/utils/Musichandle";
+import { error } from "console";
 
 const PostModal: React.FC = () => {
     useEffect(() => {
@@ -31,28 +33,6 @@ const PostModal: React.FC = () => {
 
     //プレビュー再生処理
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const handlePlayPause = (track: MappedTrack) => {
-        //押されたidが現在のidと同じだったら,つまりもう一度押されたら
-        if (playingTrackId === track.id) {
-            //stopさせて
-            audioRef?.current?.pause();
-            //track-idをnullにセット
-            setPlayingTrackId(null);
-        } else {
-            if (playingTrackId) {
-                audioRef?.current?.pause();
-            }
-            //スタートの処理
-            audioRef.current = new Audio(track.preview_url);
-            audioRef.current.play();
-            setPlayingTrackId(track.id);
-            //再生が終わった処理
-            audioRef.current.onended = () => {
-                setPlayingTrackId(null);
-            };
-        }
-    };
-
     //モーダルが閉じる時の処理
     const handleClose = () => {
         router.back();
@@ -139,7 +119,9 @@ const PostModal: React.FC = () => {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errorData = await response.json();
+                alert(errorData.error);
+                throw new Error(errorData.error || '不明なエラーが発生しました');
             }
 
             const data = await response.json();
@@ -150,7 +132,6 @@ const PostModal: React.FC = () => {
             router.push("/homePost");
         } catch (err) {
             console.error("error api call", err);
-            alert("投稿に失敗しました。もう一度お試しください。");
         }
     };
 
@@ -221,7 +202,7 @@ const PostModal: React.FC = () => {
                                         <button
                                             className="musicp-play-pause"
                                             onClick={() => {
-                                                handlePlayPause(track);
+                                                handlePlayPause(track, playingTrackId, setPlayingTrackId, audioRef);
                                             }}
                                         >
                                             {playingTrackId === track.id ? (
