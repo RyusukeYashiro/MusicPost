@@ -8,7 +8,7 @@ import { Config } from "./config";
 
 interface User extends RowDataPacket {
     id: number;
-    username: string;
+    name: string;
     password: string;
     // 他の必要なフィールドを追加
 }
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest, res: NextResponse) {
 
         //暗号化する中身
         const payload = {
-            username: user.username,
+            username: user.name,
             id: user.id,
         };
 
