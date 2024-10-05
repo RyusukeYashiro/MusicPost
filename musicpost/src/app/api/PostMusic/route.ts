@@ -11,12 +11,14 @@ interface postType {
 
 interface DecodedUser {
     id: string;
+    username: string;
 }
 export async function POST(request: NextRequest) {
     try {
         //JWT認証をする関数
         const user = authenticateToken(request) as DecodedUser | null;
         if (!user) {
+            console.error('認証に失敗したのでログインし直してください')
             return NextResponse.json({ error: "認証に失敗しました。再度ログインしてください。" }, { status: 401 });
         }
 
@@ -28,7 +30,15 @@ export async function POST(request: NextRequest) {
         if (!existingMusic || existingMusic.length === 0) {
             const [musicResult] = await db.query(
                 "insert into Music (id , name , album_art_url , music_url, artist , artist_url , preview_url) value (?,?,?,?,?,?,?)",
-                [ms.id, ms.name, ms.albumArt, ms.musicUrl, ms.artist, ms.artistUrl, ms.preview_url],
+                [
+                    ms.id,
+                    ms.name,
+                    ms.albumArt,
+                    ms.musicUrl,
+                    ms.artist,
+                    ms.artistUrl,
+                    ms.preview_url
+                ],
             );
 
             if (!musicResult && !("affectedRows" in musicResult)) {
@@ -36,9 +46,10 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        const [postMusic] = await db.query("insert into Posts (content , user_id , music_id) value (? , ? , ?)", [
+        const [postMusic] = await db.query("insert into Posts (content , user_id , user_name , music_id) value (? , ? , ? , ?)", [
             postContent,
             user.id,
+            user.username,
             ms.id,
         ]);
 
