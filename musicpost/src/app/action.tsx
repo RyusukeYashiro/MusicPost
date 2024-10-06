@@ -2,6 +2,8 @@
 import { RowDataPacket } from "mysql2";
 import { MappedTrack } from "@/types/mappedTrack";
 import { db } from "../lib/db";
+import { RedirectType } from "next/navigation";
+import { cookies } from 'next/headers'
 
 // mysql2ライブラリとの型の互換性を保証
 export interface Post extends RowDataPacket {
@@ -57,3 +59,21 @@ export const getLatestPost = async () => {
         throw new Error("Failed to fetch latest posts");
     }
 };
+
+export const logOutUser = (): boolean => {
+    try {
+        cookies().set({
+            name: 'jwt',
+            value: '',
+            path: '/',
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            expires: new Date(0)
+        });
+        return (true);
+    } catch (err) {
+        console.error(err);
+        return (false);
+    }
+}

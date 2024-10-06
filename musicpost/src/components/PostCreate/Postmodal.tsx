@@ -15,6 +15,9 @@ import { handlePlayPause } from "@/utils/Musichandle";
 import { error } from "console";
 
 const PostModal: React.FC = () => {
+
+    const router = useRouter();
+
     useEffect(() => {
         Modal.setAppElement(".modalMain");
         setSelectImg("");
@@ -22,8 +25,6 @@ const PostModal: React.FC = () => {
             audioRef.current.pause();
         }
     }, []);
-
-    const router = useRouter();
     const [searchMusic, setSearchMusic] = useState("");
     const [result, setResult] = useState<MappedTrack[]>([]);
     const [comment, setComment] = useState("");
@@ -163,7 +164,7 @@ const PostModal: React.FC = () => {
                 <div className="title-search-wrapper">
                     <form className="search-form" onSubmit={handleSearch} ref={startRef}>
                         <input type="text" placeholder="キーワードを入力" onChange={(e) => setSearchMusic(e.target.value)} />
-                        <button type="submit" aria-label="検索"></button>
+                        <button type="submit" aria-label="検索" className="search-btn"></button>
                     </form>
 
                     <Suspense fallback={<Loadiong />}>

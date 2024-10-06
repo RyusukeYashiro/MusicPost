@@ -29,7 +29,7 @@ const SidebarData: () => SidebarItem[] = () => [
   {
     title: "ログアウト",
     icon: <LogoutSharpIcon />,
-    link: "/signout",
+    link: "/logOut",
   },
 ];
 
