@@ -52,7 +52,7 @@
     margin-top: 0.25rem;
 }
 
-button[type = 'submit'] {
+.login-btn {
     width: 100%;
     padding: 0.5rem 0;
     border: none;
@@ -65,6 +65,6 @@ button[type = 'submit'] {
     max-width: 200px;
 }
 
-button[type="submit"]:hover {
+.login-btn {
     background-color: #2563eb;
   }
