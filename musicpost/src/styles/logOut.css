@@ -1,0 +1,40 @@
+.logOut-footer {
+    display: flex;
+    margin-top: 20px;
+}
+
+.log-out-btn {
+    padding: 1rem 3rem;
+    font-weight: bold;
+    color: rgb(170, 13, 44);
+    border-radius: 100vh;
+    border-bottom: 2px solid rgb(170, 13, 44);
+    box-shadow: 0 2px 7px rgba(0, 0, 0, .3);
+    transition: 0.5s;
+    margin-right: 10px;
+}
+
+.log-out-btn:hover {
+    color: #fff;
+    background-color: rgb(170, 13, 44);
+    border-bottom: 2px solid #fff;
+    transform: translateY(3px);
+}
+
+.log-out-cancel {
+    padding: 1rem 3rem;
+    font-weight: bold;
+    color: #27acd9;
+    border-radius: 100vh;
+    border-bottom: 2px solid #27acd9;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, .3);
+    transition: 0.5s;
+    margin-left: 10px;
+}
+
+.log-out-cancel:hover{
+    color: #fff;
+    background-color: #27acd9;
+    border-bottom: 2px solid #fff;
+    transform: translateY(3px);
+}

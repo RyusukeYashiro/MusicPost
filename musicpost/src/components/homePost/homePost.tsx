@@ -10,6 +10,7 @@ import Image from "next/image";
 import noimage from "../../../public/images/3.png";
 import { usePathname } from "next/navigation";
 import '../../styles/HomePost.css';
+import PersonIcon from '@mui/icons-material/Person';
 
 export interface Post {
     user_id: number;
@@ -47,7 +48,6 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
     }, [pathname]);
     return (
         <div className="post">
-            <h2>homeアイコンで最新のツイートを!</h2>
             <ul className="post-list">
                 {allPost.posts.map((post) => {
                     const music = allPost.musicInfo.find((m) => m.id === post.music_id);
@@ -55,7 +55,10 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
                     return (
                         <li key={`${post.user_id}-${music.id}`}>
                             <div className="post-item">
-                                <div>{post.user_name}</div>
+                                <div>
+                                    <PersonIcon />
+                                    {post.user_name}
+                                </div>
                                 <div className="post-music">
                                     <div className="music-select">
                                         <Image
