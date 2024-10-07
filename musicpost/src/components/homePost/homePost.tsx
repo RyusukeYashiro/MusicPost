@@ -9,6 +9,7 @@ import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import Image from "next/image";
 import noimage from "../../../public/images/3.png";
 import { usePathname } from "next/navigation";
+import '../../styles/HomePost.css';
 
 export interface Post {
     user_id: number;
@@ -45,7 +46,7 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
         }
     }, [pathname]);
     return (
-        <div>
+        <div className="post">
             <h2>homeアイコンで最新のツイートを!</h2>
             <ul className="post-list">
                 {allPost.posts.map((post) => {
@@ -65,47 +66,46 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
                                             className="rounded-md"
                                         />
                                     </div>
-                                    <h3 className="font-bold">
-                                        <a
-                                            href={music.musicUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-[#639bb7] hover:text-[#1abc54] transition-colors duration-300"
-                                        >
-                                            {music.name}
-                                        </a>
-                                    </h3>
-                                    <p className="text-gray-600">
-                                        <a
-                                            href={music.artistUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-[#639bb7] hover:text-[#1abc54] transition-colors duration-300"
-                                        >
-                                            {music.artist}
-                                        </a>
-                                    </p>
+                                    <div>
+                                        <h3 className="font-bold">
+                                            <a
+                                                href={music.musicUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {music.name}
+                                            </a>
+                                        </h3>
+                                        <p className="text-gray-600">
+                                            <a
+                                                href={music.artistUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {music.artist}
+                                            </a>
+                                        </p>
+                                    </div>
                                     {music.preview_url && (
                                         <button
                                             className="music-play-pause"
                                             onClick={() => handlePlayPause(music, playingTrackId, setPlayingTrackId, audioRef)}
                                         >
                                             {playingTrackId === music.id ? (
-                                                <PauseCircleOutlineIcon className="mx-4" sx={{ fontSize: 40 }} />
+                                                <PauseCircleOutlineIcon />
                                             ) : (
-                                                <PlayCircleOutlineIcon className="mx-4" sx={{ fontSize: 40 }} />
+                                                <PlayCircleOutlineIcon />
                                             )}
                                         </button>
                                     )}
                                 </div>
                                 <div className="post-content">
-                                    <div className="contents">{post.content}</div>
+                                    <div>{post.content}</div>
                                 </div>
                             </div>
                         </li>
                     )
-                }
-                )}
+                })}
             </ul>
             <audio ref={audioRef} />
         </div>

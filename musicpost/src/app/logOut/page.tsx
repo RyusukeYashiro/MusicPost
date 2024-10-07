@@ -4,6 +4,7 @@ import Modal from 'react-modal'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import { logOutUser } from '../action';
+import '../../styles/logOut.css';
 
 const logOut = () => {
 
@@ -43,20 +44,35 @@ const logOut = () => {
                         top: 0,
                         left: 0,
                         backgroundColor: "rgb(191 188 188 / 75%)",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                     },
                     content: {
+                        position: 'relative',
+                        top: 'auto',
+                        left: 'auto',
+                        right: 'auto',
+                        bottom: 'auto',
                         borderRadius: 20,
                         padding: 20,
+                        maxHeight: '200px',
+                        maxWidth: '450px',
+                        width: '90%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        backgroundColor: 'white',
+                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
                     },
                 }}
             >
                 <div className='delete message'>
                     <h2>このアカウントからログアウトしますか?</h2>
-                    <button onClick={handleLogOut}>ログアウト</button>
-                    <button onClick={handleClose}>キャンセル</button>
+                    <div className='logOut-footer'>
+                        <button onClick={handleLogOut} className='log-out-btn'>ログアウト</button>
+                        <button onClick={handleClose} className='log-out-cancel'>キャンセル</button>
+                    </div>
                 </div>
             </Modal>
         </div>
