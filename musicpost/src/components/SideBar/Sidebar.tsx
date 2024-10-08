@@ -15,7 +15,7 @@ type SidebarProps = {
   username: string | JwtPayload | undefined;
 }
 
-const Sidebar = async (username: SidebarProps) => {
+const Sidebar = (username: SidebarProps) => {
   // SidebarData を関数として呼び出し、結果を配列として使用
   console.log("this is username in Sidebar", username);
   const sidebarItems = SidebarData(username.username);

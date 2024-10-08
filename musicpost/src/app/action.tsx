@@ -10,28 +10,11 @@ import { NextRequest } from "next/server";
 import { JwtPayload } from "jsonwebtoken";
 import jwt from 'jsonwebtoken'
 import { Config } from "./api/login/config";
+import { Post } from '../types/serverType';
+import { RawMusicData } from '../types/serverType';
 
 // mysql2ライブラリとの型の互換性を保証
-export interface Post extends RowDataPacket {
-    user_id: number;
-    music_id: string;
-    user_name: string;
-    content: string;
-}
 
-interface RawMusicData extends RowDataPacket {
-    id: string;
-    name: string;
-    album_art_url: string;
-    music_url: string;
-    artist: string;
-    artist_url: string;
-    preview_url: string | undefined;
-}
-interface DecodedUser extends JwtPayload {
-    username: string;
-    id: number;
-}
 
 export const getLatestPost = async () => {
     try {
@@ -98,4 +81,26 @@ export const getUserInfo = async (): Promise<string | JwtPayload | undefined> =>
         return (decoded);
     }
     return undefined;
+}
+
+export const getUserData = async (holdName: string) => {
+
+    // console.log('確認', holdName);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userSetProf`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: holdName })
+    });
+
+    if (!response.ok) {
+        console.error('Request URL:', `${process.env.NEXT_PUBLIC_API_URL}/api/userSetProf`);
+        console.error('Request body:', holdName);
+        throw new Error(`fetch Error : ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('dataの確認', data);
+    return (data);
 }
