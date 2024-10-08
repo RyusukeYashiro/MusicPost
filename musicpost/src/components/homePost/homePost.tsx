@@ -34,6 +34,7 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const pathname = usePathname();
 
+
     const refreshPost = async () => {
         const latestPosts = await getLatestPost();
         setPosts(latestPosts);
@@ -108,7 +109,7 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
                             </div>
                         </li>
                     )
-                })}
+                })}️
             </ul>
             <audio ref={audioRef} />
         </div>

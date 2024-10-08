@@ -4,6 +4,12 @@ import { MappedTrack } from "@/types/mappedTrack";
 import { db } from "../lib/db";
 import { RedirectType } from "next/navigation";
 import { cookies } from 'next/headers'
+import { isNumberObject } from "util/types";
+import authenticateToken from "./api/login/auth";
+import { NextRequest } from "next/server";
+import { JwtPayload } from "jsonwebtoken";
+import jwt from 'jsonwebtoken'
+import { Config } from "./api/login/config";
 
 // mysql2ライブラリとの型の互換性を保証
 export interface Post extends RowDataPacket {
@@ -21,6 +27,10 @@ interface RawMusicData extends RowDataPacket {
     artist: string;
     artist_url: string;
     preview_url: string | undefined;
+}
+interface DecodedUser extends JwtPayload {
+    username: string;
+    id: number;
 }
 
 export const getLatestPost = async () => {
@@ -76,4 +86,16 @@ export const logOutUser = (): boolean => {
         console.error(err);
         return (false);
     }
+}
+
+export const getUserInfo = async (): Promise<string | JwtPayload | undefined> => {
+    const cookieStore = cookies(); // cookiesを取得
+    console.log("all cookie", cookieStore);
+    const token = cookieStore.get('jwt')?.value;
+    if (!token) return undefined;
+    const decoded = jwt.verify(token, Config.jwt.secret);
+    if (decoded) {
+        return (decoded);
+    }
+    return undefined;
 }

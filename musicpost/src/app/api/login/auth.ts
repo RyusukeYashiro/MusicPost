@@ -21,4 +21,5 @@ const authenticateToken = (req: NextRequest) => {
         return null;
     }
 };
+
 export default authenticateToken;
