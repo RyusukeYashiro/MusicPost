@@ -9,7 +9,7 @@ interface postType {
     postContent: string;
 }
 
-interface DecodedUser {
+export interface DecodedUser {
     id: string;
     username: string;
 }
