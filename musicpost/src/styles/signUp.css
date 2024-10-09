@@ -52,7 +52,7 @@
     margin-top: 0.25rem;
 }
 
-button[type = 'submit'] {
+.sign-sub {
     width: 100%;
     padding: 0.5rem 0;
     border: none;
@@ -64,7 +64,6 @@ button[type = 'submit'] {
     background-color:  #10b981; 
     max-width: 200px;
 }
-
-button[type="submit"]:hover {
+.sign-sub:hover {
     background-color: #059669;
-    }
+}
