@@ -1,6 +1,6 @@
 'use client';
 
-import { getUserData } from '@/app/action';
+import { deltePost, getUserData } from '@/app/action';
 import { MappedTrack } from '@/types/mappedTrack';
 import { Post } from '@/types/serverType';
 import Image from 'next/image';
@@ -13,14 +13,16 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import '../../../styles/UserSet.css';
 import PersonIcon from '@mui/icons-material/Person';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface PostData {
     posts: Post[];
     musicInfo: MappedTrack[];
 }
 
-interface PostContent {
+export interface PostContent {
     content: string;
+    id: number;
 }
 
 const userSet = () => {
@@ -82,6 +84,20 @@ const userSet = () => {
         fetchData();
     }, [holdName]);
 
+    const handleDelete = async () => {
+        const result = await deltePost(selectContent);
+        if (result) {
+            //ここで状態変数をリロードを挟まずに削除する
+            setUserAllPost((prevPost) => ({
+                ...prevPost,
+                posts: prevPost.posts.filter((post) => post.id !== selectContent?.id)
+            }));
+            setPostCount((prevCount) => (prevCount - 1));
+            setSelectContent(null);
+            console.log('削除成功です');
+        }
+    }
+
     return (
         <div className='modalMain' >
             <Modal
@@ -115,6 +131,14 @@ const userSet = () => {
                         <div>
                             投稿数 : {PostCount}
                         </div>
+                        {selectContent && (
+                            <div className='delete-btn'>
+                                <DeleteIcon></DeleteIcon>
+                                <button onClick={handleDelete}>
+                                    <p>削除</p>
+                                </button>
+                            </div>
+                        )}
                     </div>
                     <div className='user-post'>
                         <ul className='user-post-list' >
@@ -127,12 +151,12 @@ const userSet = () => {
                                     >
                                         <div className='user-item' >
                                             <div className='post-select'
-                                                onClick={() => handleSelect({ content: post.content })}
+                                                onClick={() => handleSelect({ content: post.content, id: post.id })}
                                             >
                                                 <input
                                                     type='checkbox'
                                                     checked={selectContent?.content === post.content}
-                                                    onChange={() => handleSelect({ content: post.content })}
+                                                    onChange={() => handleSelect({ content: post.content, id: post.id })}
                                                 ></input>
                                                 <Image
                                                     alt={`Album art for ${music.albumArt}`}
