@@ -1,6 +1,7 @@
 import { RowDataPacket } from "mysql2";
 
 export interface Post extends RowDataPacket {
+    id: number;
     user_id: number;
     music_id: string;
     user_name: string;

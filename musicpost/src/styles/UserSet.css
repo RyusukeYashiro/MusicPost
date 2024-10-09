@@ -6,6 +6,9 @@
 .user-prof  {
     text-align: center;
     margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .user-info {
@@ -71,5 +74,26 @@
     font-size: 32px;
 }
 
+.delete-btn {
+    /* width: 85px; */
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    color: #f40505;
+    padding: 12px  10px 10px  10px;
+    border-bottom: 2px solid  #f40505;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, .3);
+    transition: 0.5s;
+}
 
+.delete-btn:hover {
+	color: #fff;
+	background: #f40505;
+	border-bottom: 2px solid #fff;
+	transform: translateY(3px);
+}
+
+.delete-btn svg{
+    margin-bottom: 3px;
+}
 
