@@ -11,10 +11,16 @@ import noimage from "../../../../public/images/3.png";
 import { handlePlayPause } from '@/utils/Musichandle';
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import '../../../styles/UserSet.css';
+import PersonIcon from '@mui/icons-material/Person';
 
 interface PostData {
     posts: Post[];
     musicInfo: MappedTrack[];
+}
+
+interface PostContent {
+    content: string;
 }
 
 const userSet = () => {
@@ -25,12 +31,22 @@ const userSet = () => {
 
     const [PostCount, setPostCount] = useState(0);
     const [playingTrackId, setPlayingTrackId] = useState<string | null>(null);
+    const [selectContent, setSelectContent] = useState<PostContent | null>(null);
 
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const router = useRouter();
     const pathName = usePathname();
     const handleClose = () => {
         router.back();
+    }
+
+    const handleSelect = (postContent: PostContent) => {
+        if (selectContent && selectContent.content === postContent.content) {
+            setSelectContent(null);
+        } else {
+            setSelectContent(postContent);
+            console.log('選んだポスト情報', postContent);
+        }
     }
 
     useEffect(() => {
@@ -67,7 +83,7 @@ const userSet = () => {
     }, [holdName]);
 
     return (
-        <div className='modalMain'>
+        <div className='modalMain' >
             <Modal
                 isOpen={true}
                 onRequestClose={handleClose}
@@ -87,25 +103,36 @@ const userSet = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                     },
-                }}>
-                <div className='profile-info'>
-                    <div>ユーザー情報</div>
-                    <div className='user-prof'>
+                }
+                }>
+                <div className='user-container' >
+                    <div className='user-info' >
+                        <div>ユーザー情報 : </div>
+                        <PersonIcon></PersonIcon>
+                        < div className='user-name' > {holdName} </div>
+                    </div>
+                    < div className='user-prof' >
                         <div>
                             投稿数 : {PostCount}
                         </div>
                     </div>
                     <div className='user-post'>
-                        <ul className='user-post-list'>
+                        <ul className='user-post-list' >
                             {UserAllPost?.posts?.map((post) => {
                                 const music = UserAllPost.musicInfo.find((m) => m.id === post.music_id);
                                 if (!music) return null;
                                 return (
-                                    <li key={`${post.user_id}-${music.id}`}>
-                                        <div className='user-item'>
-                                            <div className='post-select'>
+                                    <li
+                                        key={`${post.user_id}-${music.id}`}
+                                    >
+                                        <div className='user-item' >
+                                            <div className='post-select'
+                                                onClick={() => handleSelect({ content: post.content })}
+                                            >
                                                 <input
                                                     type='checkbox'
+                                                    checked={selectContent?.content === post.content}
+                                                    onChange={() => handleSelect({ content: post.content })}
                                                 ></input>
                                                 <Image
                                                     alt={`Album art for ${music.albumArt}`}
@@ -115,8 +142,8 @@ const userSet = () => {
                                                     className='rounded-md'
                                                 ></Image>
                                             </div>
-                                            <div>
-                                                <h3 className='font-bold'>
+                                            < div >
+                                                <h3 className='font-bold' >
                                                     <a
                                                         href={music.musicUrl}
                                                         target='_blank'
@@ -125,7 +152,7 @@ const userSet = () => {
                                                         {music.name}
                                                     </a>
                                                 </h3>
-                                                <p className='text-gray-600'>
+                                                < p className='text-gray-600' >
                                                     <a
                                                         href={music.artistUrl}
                                                         target='_blank'
@@ -135,27 +162,29 @@ const userSet = () => {
                                                     </a>
                                                 </p>
                                             </div>
-                                            {music.preview_url && (
-                                                <button
-                                                    className="music-play-pause"
-                                                    onClick={() => handlePlayPause(music, playingTrackId, setPlayingTrackId, audioRef)}
-                                                >
-                                                    {playingTrackId === music.id ? (
-                                                        <PauseCircleOutlineIcon />
-                                                    ) : (
-                                                        <PlayCircleOutlineIcon />
-                                                    )}
-                                                </button>
-                                            )}
+                                            {
+                                                music.preview_url && (
+                                                    <button
+                                                        className="music-play-pause"
+                                                        onClick={() => handlePlayPause(music, playingTrackId, setPlayingTrackId, audioRef)
+                                                        }
+                                                    >
+                                                        {playingTrackId === music.id ? (
+                                                            <PauseCircleOutlineIcon />
+                                                        ) : (
+                                                            <PlayCircleOutlineIcon />
+                                                        )}
+                                                    </button>
+                                                )}
                                         </div>
-                                        <div className='user-content'>
-                                            <div>{post.content}</div>
+                                        < div className='user-content' >
+                                            <div>{post.content} </div>
                                         </div>
                                     </li>
                                 );
                             })}
                         </ul>
-                        <audio ref={audioRef} />
+                        < audio ref={audioRef} />
                     </div>
                 </div>
             </Modal>
