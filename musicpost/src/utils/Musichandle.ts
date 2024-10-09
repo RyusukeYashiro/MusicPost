@@ -1,4 +1,19 @@
 import { MappedTrack } from "@/types/mappedTrack";
+import { usePathname } from "next/navigation";
+
+// 音声を停止する共通関数
+export const stopAudio = (
+    audioRef: React.MutableRefObject<HTMLAudioElement | null>,
+    setPlayingTrackId: (id: string | null) => void
+) => {
+    if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current.src = ''; // オーディオソースをクリア
+        audioRef.current.load(); // オーディオを再ロード
+    }
+    setPlayingTrackId(null);
+};
 
 // 外部化した関数
 export const handlePlayPause = (
@@ -9,14 +24,9 @@ export const handlePlayPause = (
 ) => {
     // 押されたidが現在のidと同じだったら,つまりもう一度押されたら
     if (playingTrackId === musicInfo.id) {
-        // stopさせて
-        audioRef?.current?.pause();
-        // track-idをnullにセット
-        setPlayingTrackId(null);
+        stopAudio(audioRef, setPlayingTrackId);
     } else {
-        if (playingTrackId) {
-            audioRef?.current?.pause();
-        }
+        stopAudio(audioRef, setPlayingTrackId); // 現在再生中のトラックがあれば停止
         // スタートの処理
         audioRef.current = new Audio(musicInfo.preview_url);
         audioRef.current.play();
@@ -27,3 +37,4 @@ export const handlePlayPause = (
         };
     }
 };
+

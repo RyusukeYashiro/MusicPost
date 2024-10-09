@@ -8,7 +8,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import Modal from 'react-modal';
 import noimage from "../../../../public/images/3.png";
-import { handlePlayPause } from '@/utils/Musichandle';
+import { handlePlayPause, stopAudio } from '@/utils/Musichandle';
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import '../../../styles/UserSet.css';
@@ -41,6 +41,10 @@ const userSet = () => {
     const handleClose = () => {
         router.back();
     }
+
+    const pathname = usePathname();
+
+
 
     const handleSelect = (postContent: PostContent) => {
         if (selectContent && selectContent.content === postContent.content) {
@@ -208,7 +212,7 @@ const userSet = () => {
                                 );
                             })}
                         </ul>
-                        < audio ref={audioRef} />
+                        <audio ref={audioRef} />
                     </div>
                 </div>
             </Modal>
