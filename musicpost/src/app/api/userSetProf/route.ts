@@ -12,9 +12,9 @@ export async function POST(request: NextRequest) {
         console.log('リクエストの中身を確認 in POST', body);
 
         const [UserPosts] = await db.query<Post[]>(`
-            select user_id , music_id , content , user_name 
+            select id , user_id , music_id , content , user_name 
             from Posts
-            where user_name in (?)
+            where user_name = (?)
             order by id desc
             `,
             [body.username]
