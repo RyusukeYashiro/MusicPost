@@ -44,8 +44,6 @@ const userSet = () => {
 
     const pathname = usePathname();
 
-
-
     const handleSelect = (postContent: PostContent) => {
         if (selectContent && selectContent.content === postContent.content) {
             setSelectContent(null);
@@ -57,7 +55,12 @@ const userSet = () => {
 
     useEffect(() => {
         Modal.setAppElement(".modalMain");
-        console.log("this is modal deal");
+        console.log("これは初期マウント時の処理になります");
+        audioRef.current = new Audio();
+        return () => {
+            console.log('これはアンマウント時の処理になります', audioRef);
+            stopAudio(audioRef, setPlayingTrackId);
+        };
     }, []);
 
     //パラメーターから名前を取得
@@ -102,6 +105,7 @@ const userSet = () => {
         }
     }
 
+
     return (
         <div className='modalMain' >
             <Modal
@@ -139,7 +143,7 @@ const userSet = () => {
                             <div className='delete-btn'>
                                 <DeleteIcon></DeleteIcon>
                                 <button onClick={handleDelete}>
-                                    <p>削除</p>
+                                    <div>削除</div>
                                 </button>
                             </div>
                         )}
@@ -212,7 +216,6 @@ const userSet = () => {
                                 );
                             })}
                         </ul>
-                        <audio ref={audioRef} />
                     </div>
                 </div>
             </Modal>

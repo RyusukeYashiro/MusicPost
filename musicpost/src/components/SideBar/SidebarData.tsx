@@ -16,7 +16,9 @@ type UserInfo = string | JwtPayload | null | undefined;
 //ダイナミックルーティングを使用
 const SidebarData = (name: UserInfo): SidebarItem[] => {
   const userLink = (() => {
-    if (!name) return '/login';
+    if (!name) {
+      return '/Login';
+    };
     const username = typeof name === 'string' ? name : name.username;
     return username ? `/userSet/${encodeURIComponent(username)}` : '/Login';
   })();

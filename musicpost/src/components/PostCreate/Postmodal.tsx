@@ -11,7 +11,7 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { SpotifyApiTrack } from "../../types/spotifyApiTrack";
 import { MappedTrack } from "../../types/mappedTrack";
-import { handlePlayPause } from "@/utils/Musichandle";
+import { handlePlayPause, stopAudio } from "@/utils/Musichandle";
 import { error } from "console";
 
 const PostModal: React.FC = () => {
@@ -21,10 +21,13 @@ const PostModal: React.FC = () => {
     useEffect(() => {
         Modal.setAppElement(".modalMain");
         setSelectImg("");
-        if (audioRef.current) {
-            audioRef.current.pause();
+        audioRef.current = new Audio();
+        return () => {
+            console.log('これはアンマウント時の処理');
+            stopAudio(audioRef, setPlayingTrackId);
         }
     }, []);
+
     const [searchMusic, setSearchMusic] = useState("");
     const [result, setResult] = useState<MappedTrack[]>([]);
     const [comment, setComment] = useState("");

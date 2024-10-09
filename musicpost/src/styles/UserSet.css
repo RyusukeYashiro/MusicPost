@@ -87,7 +87,7 @@
 }
 
 .delete-btn:hover {
-	color: #fff;
+	color: white;
 	background: #f40505;
 	border-bottom: 2px solid #fff;
 	transform: translateY(3px);
@@ -96,4 +96,7 @@
 .delete-btn svg{
     margin-bottom: 3px;
 }
-
+/* 
+.delete-btn p {
+    text-align: center;
+} */

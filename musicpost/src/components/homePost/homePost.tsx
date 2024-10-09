@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getLatestPost } from "@/app/action";
 import { MappedTrack } from "@/types/mappedTrack";
-import { handlePlayPause } from "@/utils/Musichandle";
+import { handlePlayPause, stopAudio } from "@/utils/Musichandle";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import Image from "next/image";
@@ -41,12 +41,22 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
         console.log('latestPost', latestPosts);
     }
 
+    useEffect(() => {
+        audioRef.current = new Audio();
+        console.log('これは初期レンダリングの処理');
+        return () => {
+            console.log('これはアンマウント時の処理');
+            stopAudio(audioRef, setPlayingTrackId);
+        };
+    }, []);
+
 
     useEffect(() => {
         if (pathname === '/homePost') {
             refreshPost();
         }
     }, [pathname]);
+
     return (
         <div className="post">
             <ul className="post-list">
@@ -111,7 +121,6 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
                     )
                 })}️
             </ul>
-            <audio ref={audioRef} />
         </div>
     );
 };
