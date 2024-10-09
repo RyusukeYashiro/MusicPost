@@ -1,18 +1,14 @@
 "use server";
-import { RowDataPacket } from "mysql2";
+import { OkPacket, QueryResult, RowDataPacket } from "mysql2";
 import { MappedTrack } from "@/types/mappedTrack";
 import { db } from "../lib/db";
-import { RedirectType } from "next/navigation";
 import { cookies } from 'next/headers'
-import { isNumberObject } from "util/types";
-import authenticateToken from "./api/login/auth";
-import { NextRequest } from "next/server";
 import { JwtPayload } from "jsonwebtoken";
 import jwt from 'jsonwebtoken'
 import { Config } from "./api/login/config";
 import { Post } from '../types/serverType';
 import { RawMusicData } from '../types/serverType';
-
+import { PostContent } from './userSet/[username]/page'
 // mysql2ライブラリとの型の互換性を保証
 
 
@@ -103,4 +99,29 @@ export const getUserData = async (holdName: string) => {
     const data = await response.json();
     console.log('dataの確認', data);
     return (data);
+}
+
+export const deltePost = async (selectContent: (PostContent | null)) => {
+    try {
+        if (!selectContent?.id) {
+            throw new Error("投稿IDが選択されていません");
+        }
+
+        const [result] = await db.query<any>(
+            'DELETE FROM Posts WHERE id = ?',
+            [selectContent.id]
+        );
+
+        if (result.affectedRows === 0) {
+            return { success: false, message: "削除対象の投稿が見つかりませんでした" };
+        }
+
+        return { success: true, message: `ID ${selectContent.id} の投稿が正常に削除されました` };
+    } catch (err) {
+        console.error('削除操作中にエラーが発生しました:', err);
+        return {
+            success: false,
+            message: err instanceof Error ? err.message : '不明なエラーが発生しました'
+        };
+    }
 }
