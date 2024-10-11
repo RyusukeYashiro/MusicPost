@@ -98,13 +98,9 @@
   
   /* レスポンシブデザイン */
   @media (max-width: 600px) {
-    .post {
-      padding: 10px;
-    }
-  
+
     .post-music {
       flex-direction: column;
-      align-items: flex-start;
     }
   
     .music-select {

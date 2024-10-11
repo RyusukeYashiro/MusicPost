@@ -7,11 +7,11 @@
 .Sidebar {
     height: 100%;
     width: 200px;
-    background-color: rgb(4, 70, 110);
-    position: fixed;
+    background-color: rgba(81, 143, 244, 0.5);;
+    /* position: fixed; */
 }
 
-.SidebarList {
+.Sidebar-list {
     height: auto;
     padding: 0;
     width: 100%;
@@ -19,7 +19,7 @@
     margin: 0; /* デフォルトマージンを削除 */
 }
 
-.SidebarList .row {
+.Sidebar-list .row {
     width: 100%;
     height: 80px;
     color: aliceblue;
@@ -27,31 +27,92 @@
     align-items: center; /* 垂直方向の中央揃え */
 }
 
-.SidebarList .row a {
+.Sidebar-list .row a {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
 }
 
-.sidebarItem {
+.Sidebar-item {
     display: flex;
     align-items: center; /* 垂直方向の中央揃え */
     width: 100%;
 }
 
-.sidebarItem #icon {
+.Sidebar-item #icon {
     flex: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.sidebarItem #title {
+.Sidebar-item #title {
     flex: 70%;
 }
 
-.SidebarList .row:hover {
+.Sidebar-list .row:hover {
     cursor: pointer;
     background-color: rgb(7, 112, 177);
 }
+
+.Sidebar-list {
+    display: none; /* デフォルトでは非表示 */
+}
+  
+  .Sidebar-list.open {
+    display: block; /* openクラスが付与されたときに表示 */
+  }
+  
+  .Side-menu{
+    display: none; /* デフォルトでは非表示 */
+    top: 10px; /* スクリーンの上部に10pxの位置 */
+    left: 10px;
+  }
+  
+  @media (max-width: 600px) {
+
+    .Sidebar.close-side {
+        background-color: white;
+        width: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        margin-top: 10px;
+    }
+
+    .Sidebar.open-side {
+        width: 70%;
+        position: fixed;
+    }
+
+    .Side-menu {
+        display: block; /* 600px以下のときに表示 */
+        margin-top: 10px;
+        margin-left: 10px;
+        position: fixed;
+    }
+
+    .Sidebar-list {
+      display: none; /* 初期状態で非表示 */
+    }
+  
+    .Sidebar-list.open {
+      display: block; /* openクラスが付与されたときに表示 */
+    }
+
+    .Sidebar-item #title {
+        flex: 70%;
+        font-size: 20px;
+    }
+  }
+  
+  @media (min-width: 601px) {
+    .Sidebar-list {
+      display: block; /* 601px以上のときは常に表示 */
+    }
+  
+    .hamburger-menu {
+      display: none; /* 601px以上のときは非表示 */
+    }
+  }
