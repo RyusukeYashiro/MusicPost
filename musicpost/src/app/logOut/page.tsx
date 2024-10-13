@@ -67,11 +67,17 @@ const logOut = () => {
                     },
                 }}
             >
-                <div className='delete message'>
+                <div className='delete-message'>
                     <h2>このアカウントからログアウトしますか?</h2>
                     <div className='logOut-footer'>
-                        <button onClick={handleLogOut} className='log-out-btn'>ログアウト</button>
-                        <button onClick={handleClose} className='log-out-cancel'>キャンセル</button>
+                        <button onClick={handleLogOut} className='log-out-btn'>
+                            <div className='logout'>
+                                ログアウト
+                            </div>
+                        </button>
+                        <button onClick={handleClose} className='log-out-cancel'>
+                            <div className='logout-not'>キャンセル</div>
+                        </button>
                     </div>
                 </div>
             </Modal>

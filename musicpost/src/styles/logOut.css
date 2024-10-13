@@ -38,3 +38,21 @@
     border-bottom: 2px solid #fff;
     transform: translateY(3px);
 }
+
+.delete-message h2 {
+    text-align: center;
+}
+
+@media screen and (max-width : 600px){
+
+    .logOut-footer {
+        justify-content: center;
+    }
+
+    .log-out-btn {
+        padding: 0.5rem 1rem;
+    }
+     .log-out-cancel {
+        padding: 0.5rem 1rem;
+     }
+}

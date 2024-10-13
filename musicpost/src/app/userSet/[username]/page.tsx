@@ -122,9 +122,8 @@ const userSet = () => {
                     content: {
                         borderRadius: 20,
                         overflowY: "auto",
-                        padding: 10,
+                        padding: 30,
                         display: 'flex',
-                        flexDirection: 'column',
                         alignItems: 'center',
                     },
                 }

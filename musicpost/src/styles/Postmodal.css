@@ -120,10 +120,19 @@
 	transform: translateY(3px);
 }
 
+.mt-4 {
+    display: flex;
+    margin-top: 1rem;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .music-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    color: #1da1f2;
 }
 
 .music-item {
@@ -135,6 +144,7 @@
     margin-bottom: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 
 .music-select input[type="checkbox"] {
     margin-right: 8px;
@@ -163,3 +173,35 @@
 .cancel-select:hover {
     background-color: #eb2525;
   }
+
+  @media (max-width: 600px) {
+
+    .search-form input {
+        max-width: 190px;
+    }
+    .post-comment textarea {
+        width: 100%;
+    } 
+
+    .footer {
+        display: grid;
+    }
+
+    .post-sub {
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
+    .post-close {
+        margin: auto;
+    }
+
+    .music-item {
+        flex-direction: column;
+    }
+
+    .mt-4 p {
+        margin-bottom: 10px;
+    }
+
+}

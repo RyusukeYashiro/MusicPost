@@ -187,17 +187,17 @@ const PostModal: React.FC = () => {
                                             href={track.musicUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-[#639bb7] hover:text-[#1abc54] transition-colors duration-300"
+                                            className="hover:text-[#1abc54] transition-colors duration-300"
                                         >
                                             {track.name}
                                         </a>
                                     </h3>
-                                    <p className="text-gray-600">
+                                    <p>
                                         <a
                                             href={track.artistUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-[#639bb7] hover:text-[#1abc54] transition-colors duration-300"
+                                            className="hover:text-[#1abc54] transition-colors duration-300"
                                         >
                                             {track.artist}
                                         </a>
