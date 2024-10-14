@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
             from Music
             where id in (?)
             `,
-            [musicIds]
+            [musicIds.join(",")]
         );
 
         const musicInfo: MappedTrack[] = musicInfoRaw.map(music => ({
