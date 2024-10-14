@@ -6,7 +6,6 @@ const Home = () => {
         <div className="container">
             <div className="content">
                 <h1>ようこそmusicPostへ!</h1>
-                <p>アカウントにログインか、新規登録</p>
                 <div className="button-container">
                     <Link href="/Login">
                         <button className="button login-button">ログイン</button>
@@ -16,9 +15,6 @@ const Home = () => {
                     </Link>
                 </div>
                 <footer>
-                    <a href="#" className="forgot-password">
-                        パスワードを忘れましたか？
-                    </a>
                     <div>!パスワードはハッシュ化して保存!</div>
                 </footer>
             </div>
