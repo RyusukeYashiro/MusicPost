@@ -1,5 +1,4 @@
 "use server";
-import { OkPacket, QueryResult, RowDataPacket } from "mysql2";
 import { MappedTrack } from "@/types/mappedTrack";
 import { db } from "../lib/db";
 import { cookies } from 'next/headers'
@@ -9,8 +8,46 @@ import { Config } from "./api/login/config";
 import { Post } from '../types/serverType';
 import { RawMusicData } from '../types/serverType';
 import { PostContent } from './userSet/[username]/page'
+import { ResultSetHeader } from "mysql2";
 // mysql2ライブラリとの型の互換性を保証
 
+const client_id = process.env.SPOTIFY_CLIENT_ID;
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+//メモリに保存する。
+let cachedToken: string | null = null;
+let tokenExpiry: number = 0;
+
+const getToken = async () => {
+    const currentTime = Date.now();
+
+    //現在の時間が、期限時間より大きかったら、まだ時間があり
+    if (cachedToken && currentTime > tokenExpiry) {
+        console.log("this no need to create token");
+        return cachedToken;
+    }
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+        method: "post",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: "Basic " + Buffer.from(client_id + ":" + client_secret).toString("base64"),
+        },
+        body: new URLSearchParams({ grant_type: "client_credentials" }),
+    });
+
+    if (!response.ok) {
+        throw new Error(`spotifyToken Error ${response.status}`);
+    } else {
+        console.log("success getting access token", response);
+        const data = await response.json();
+        //トークン情報を保持
+        cachedToken = data.access_token;
+        //トークンの時間を更新。今回トークンは１時間（3600）なので1000をかけて分に換算
+        tokenExpiry = currentTime + data.expires_in * 1000;
+        return cachedToken;
+    }
+};
+
+export default getToken;
 
 export const getLatestPost = async () => {
     try {
@@ -101,18 +138,21 @@ export const getUserData = async (holdName: string) => {
     return (data);
 }
 
+//mysqlのdelete用の型定義を行う
+type DeleteQueryResult = [ResultSetHeader];
+
 export const deltePost = async (selectContent: (PostContent | null)) => {
     try {
         if (!selectContent?.id) {
             throw new Error("投稿IDが選択されていません");
         }
 
-        const [result] = await db.query<any>(
+        const [result] = await db.query<DeleteQueryResult>(
             'DELETE FROM Posts WHERE id = ?',
             [selectContent.id]
         );
 
-        if (result.affectedRows === 0) {
+        if ('affectedRows' in result && result.affectedRows === 0) {
             return { success: false, message: "削除対象の投稿が見つかりませんでした" };
         }
 

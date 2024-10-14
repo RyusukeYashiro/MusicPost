@@ -4,7 +4,6 @@ import { db } from '../../../lib/db';
 import { NextRequest, NextResponse } from "next/server";
 import { Post, RawMusicData } from '../../../types/serverType';
 import { MappedTrack } from '@/types/mappedTrack';
-import { error } from 'console';
 
 export async function POST(request: NextRequest) {
     try {
@@ -46,4 +45,4 @@ export async function POST(request: NextRequest) {
         console.error('Error fetching UserPosts', err);
         return NextResponse.json({ error: 'failed to UserPost' }, { status: 500 });
     }
-};
+}

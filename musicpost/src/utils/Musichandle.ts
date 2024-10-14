@@ -1,5 +1,4 @@
 import { MappedTrack } from "@/types/mappedTrack";
-import { usePathname } from "next/navigation";
 
 // 音声を停止する共通関数
 export const stopAudio = (

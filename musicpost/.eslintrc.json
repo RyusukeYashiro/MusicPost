@@ -2,10 +2,14 @@
   "extends": [
     "eslint:recommended", 
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended-type-checked"],
-
-  "plugins": ["unused-imports"],
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["unused-imports", "@typescript-eslint"],
   "rules": {
     "unused-imports/no-unused-imports": "error"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "/Users/ryusukeyashiro/Desktop/MusicPost/musicpost/tsconfig.json"
   }
 }

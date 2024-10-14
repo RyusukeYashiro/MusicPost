@@ -2,14 +2,13 @@
 
 import React, { useState } from "react";
 import "../../styles/signUp.css";
-import { FormSchemaData } from "@/validations/schema";
 import { useRouter } from "next/navigation";
 
 export interface ErrorType {
     [key: string]: string;
 }
 
-const signUpForm = () => {
+const SignUpForm = () => {
     const router = useRouter();
 
     const [formUp, setFormUp] = useState({
@@ -140,4 +139,4 @@ const signUpForm = () => {
     );
 };
 
-export default signUpForm;
+export default SignUpForm;

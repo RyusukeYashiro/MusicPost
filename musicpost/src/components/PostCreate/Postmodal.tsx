@@ -5,14 +5,12 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import "../../styles/PostModal.css";
 import Image from "next/image";
-import { NextResponse } from "next/server";
 import Loadiong from "@/app/loading";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { SpotifyApiTrack } from "../../types/spotifyApiTrack";
 import { MappedTrack } from "../../types/mappedTrack";
 import { handlePlayPause, stopAudio } from "@/utils/Musichandle";
-import { error } from "console";
 
 const PostModal: React.FC = () => {
 

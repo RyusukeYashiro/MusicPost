@@ -1,8 +1,6 @@
-//tokenを複合してあっているのかを確認する
-
 import jwt from "jsonwebtoken";
 import { Config } from "./config";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 //トークンを確認するための関数
 const authenticateToken = (req: NextRequest) => {
     try {

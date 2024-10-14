@@ -1,4 +1,3 @@
-import { formSchema } from "@/validations/schema";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from "bcrypt";
@@ -23,7 +22,7 @@ interface JwtType {
 
 const jwtConfig: JwtType = Config.jwt;
 
-export async function POST(request: NextRequest, res: NextResponse) {
+export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
         console.log("リクエストをオブジェクトとする", body);

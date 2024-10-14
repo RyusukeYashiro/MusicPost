@@ -25,7 +25,7 @@ export interface PostContent {
     id: number;
 }
 
-const userSet = () => {
+const UserSet = () => {
     const [UserAllPost, setUserAllPost] = useState<PostData>({
         posts: [], // 空の配列を初期値に設定
         musicInfo: [], // 空の配列を初期値に設定
@@ -41,8 +41,6 @@ const userSet = () => {
     const handleClose = () => {
         router.back();
     }
-
-    const pathname = usePathname();
 
     const handleSelect = (postContent: PostContent) => {
         if (selectContent && selectContent.content === postContent.content) {
@@ -222,4 +220,4 @@ const userSet = () => {
     )
 }
 
-export default userSet;
+export default UserSet;

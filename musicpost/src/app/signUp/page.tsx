@@ -1,7 +1,7 @@
 import React from "react";
 import SignUpForm from "../../components/SignUp/SignUpForm";
 
-const pageSign = () => {
+const PageSign = () => {
   return (
     <div className="post-signUp">
       <div className="mv-title">MusicPostSignUp</div>
@@ -10,4 +10,4 @@ const pageSign = () => {
   );
 };
 
-export default pageSign;
+export default PageSign;

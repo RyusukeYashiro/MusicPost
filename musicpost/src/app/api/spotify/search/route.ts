@@ -1,4 +1,4 @@
-import getToken from "../route";
+import getToken from '../../../action';
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

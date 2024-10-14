@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import Sidebar from "../../components/SideBar/Sidebar";
 import HomePost from "../../components/homePost/homePost";
 import { getLatestPost, getUserInfo } from "../action";

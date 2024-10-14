@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { logOutUser } from '../action';
 import '../../styles/logOut.css';
 
-const logOut = () => {
+const LogOut = () => {
 
     useEffect(() => {
         Modal.setAppElement(".modalMain");
@@ -85,4 +85,4 @@ const logOut = () => {
     )
 }
 
-export default logOut;
+export default LogOut;
