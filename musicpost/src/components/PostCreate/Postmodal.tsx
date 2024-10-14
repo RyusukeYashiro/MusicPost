@@ -122,7 +122,6 @@ const PostModal: React.FC = () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                alert(errorData.error);
                 throw new Error(errorData.error || '不明なエラーが発生しました');
             }
 
