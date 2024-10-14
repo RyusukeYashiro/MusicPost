@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../lib/db";
 import { MappedTrack } from "../../../types/mappedTrack";
-import { cookies } from "next/headers";
 import authenticateToken from "../login/auth";
+import { RowDataPacket } from "mysql2";
 
 interface postType {
     ms: MappedTrack;
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         const { ms, postContent }: postType = await request.json();
 
         //重複チェックする処理
-        const [existingMusic] = await db.query<any[]>("select * from Music where id = ? limit 1", [ms.id]);
+        const [existingMusic] = await db.query<RowDataPacket[]>("select * from Music where id = ? limit 1", [ms.id]);
 
         if (!existingMusic || existingMusic.length === 0) {
             const [musicResult] = await db.query(
