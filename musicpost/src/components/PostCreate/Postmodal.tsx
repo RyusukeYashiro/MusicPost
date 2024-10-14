@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
-import "../../styles/PostModal.css";
+import "../../styles/Postmodal.css";
 import Image from "next/image";
 import Loadiong from "@/app/loading";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
