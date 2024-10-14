@@ -1,9 +1,13 @@
 import React from "react";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const Loadiong = () => {
   return (
-    <div className="">
-      return <h2>Loading...</h2>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', }}>
+      <Box>
+        <CircularProgress />
+      </Box>
     </div>
   );
 };
