@@ -10,6 +10,6 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "/Users/ryusukeyashiro/Desktop/MusicPost/musicpost/tsconfig.json"
+    "project": "./tsconfig.json"
   }
 }
