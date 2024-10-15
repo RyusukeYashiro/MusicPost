@@ -6,9 +6,7 @@ import { JwtPayload } from "jsonwebtoken";
 import jwt from 'jsonwebtoken'
 import { Config } from "./api/login/config";
 import { Post } from '../types/serverType';
-import { RawMusicData } from '../types/serverType';
 import { PostContent } from './userSet/[username]/page'
-import { ResultSetHeader } from "mysql2";
 // mysql2ライブラリとの型の互換性を保証
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -51,25 +49,25 @@ export default getToken;
 
 export const getLatestPost = async () => {
     try {
-        const [posts] = await db.query<Post[]>(`
+        const posts = await db.query<Post>(`
             select user_id, music_id, content ,user_name
-            from Posts 
+            from posts 
             order by id desc
             limit 20
         `);
 
-        const musicIds = posts.map((post) => post.music_id);
+        const musicIds = posts.rows.map((post) => post.music_id);
 
-        const [musicInfoRaw] = await db.query<RawMusicData[]>(
+        const musicInfoRaw = await db.query(
             `
             select id, name, album_art_url, music_url, artist, artist_url, preview_url 
-            from Music
-            where id in (?)
+            from music
+            where id = any($1::int[])
             `,
             [musicIds]
         );
 
-        const musicInfo: MappedTrack[] = musicInfoRaw.map(music => ({
+        const musicInfo: MappedTrack[] = musicInfoRaw.rows.map(music => ({
             id: music.id,
             name: music.name,
             albumArt: music.album_art_url,
@@ -79,7 +77,7 @@ export const getLatestPost = async () => {
             preview_url: music.preview_url
         }));
 
-        return { posts, musicInfo };
+        return { posts: posts.rows, musicInfo };
     } catch (err) {
         console.error("Error Fetching latest posts", err);
         throw new Error("Failed to fetch latest posts");
@@ -138,8 +136,7 @@ export const getUserData = async (holdName: string) => {
     return (data);
 }
 
-//mysqlのdelete用の型定義を行う
-type DeleteQueryResult = [ResultSetHeader];
+//mysqlのdelete用の型定義を行
 
 export const deltePost = async (selectContent: (PostContent | null)) => {
     try {
@@ -147,12 +144,12 @@ export const deltePost = async (selectContent: (PostContent | null)) => {
             throw new Error("投稿IDが選択されていません");
         }
 
-        const [result] = await db.query<DeleteQueryResult>(
-            'DELETE FROM Posts WHERE id = ?',
+        const result = await db.query(
+            'DELETE FROM posts WHERE id = $1',
             [selectContent.id]
         );
 
-        if ('affectedRows' in result && result.affectedRows === 0) {
+        if ('affectedRows' in result.rows && result.rows.affectedRows === 0) {
             return { success: false, message: "削除対象の投稿が見つかりませんでした" };
         }
 

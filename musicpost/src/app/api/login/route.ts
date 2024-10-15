@@ -1,15 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from "bcrypt";
-import { RowDataPacket } from "mysql2";
+// import { RowDataPacket } from "mysql2";
 import jwt from "jsonwebtoken";
 import { Config } from "./config";
 
-interface User extends RowDataPacket {
+// interface User extends RowDataPacket {
+//     id: number;
+//     name: string;
+//     password: string;
+// }
+
+interface User {
     id: number;
     name: string;
     password: string;
-    // 他の必要なフィールドを追加
 }
 
 interface JwtType {
@@ -27,13 +32,15 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         console.log("リクエストをオブジェクトとする", body);
 
-        const [isRegistered] = await db.query<User[]>("select * from users where name = ? limit 1", [body.username]);
+        // const [isRegistered] = await db.query<User[]>("select * from users where name = ? limit 1", [body.username]);
+        const result = await db.query<User>("select * from users where name = $1 limit 1", [body.username]);
+        const isRegistered: User[] = result.rows;
 
-        if (Array.isArray(isRegistered) && isRegistered.length === 0) {
+        if (isRegistered.length === 0) {
             return NextResponse.json({ error: "ユーザー名かパスワードが正しくありません" }, { status: 401 });
         }
 
-        const user = isRegistered[0] as User;
+        const user = isRegistered[0]!;
         console.log(user);
         console.log("this is pass", body.password);
         const isPass = await bcrypt.compare(body.password, user.password);

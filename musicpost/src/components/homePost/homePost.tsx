@@ -19,7 +19,7 @@ export interface Post {
     content: string;
 }
 
-interface PostData {
+export interface PostData {
     posts: Post[];
     musicInfo: MappedTrack[];
 }

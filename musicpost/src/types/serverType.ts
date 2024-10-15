@@ -1,6 +1,4 @@
-import { RowDataPacket } from "mysql2";
-
-export interface Post extends RowDataPacket {
+export interface Post {
     id: number;
     user_id: number;
     music_id: string;
@@ -9,7 +7,7 @@ export interface Post extends RowDataPacket {
 }
 
 
-export interface RawMusicData extends RowDataPacket {
+export interface RawMusicData {
     id: string;
     name: string;
     album_art_url: string;

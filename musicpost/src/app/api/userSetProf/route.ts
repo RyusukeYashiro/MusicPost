@@ -2,7 +2,7 @@
 // ここではユーザーの投稿内容を一覧で表示させる
 import { db } from '../../../lib/db';
 import { NextRequest, NextResponse } from "next/server";
-import { Post, RawMusicData } from '../../../types/serverType';
+import { Post } from '../../../types/serverType';
 import { MappedTrack } from '@/types/mappedTrack';
 
 export async function POST(request: NextRequest) {
@@ -10,27 +10,29 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         console.log('リクエストの中身を確認 in POST', body);
 
-        const [UserPosts] = await db.query<Post[]>(`
+        const UserPosts = await db.query<Post>(`
             select id , user_id , music_id , content , user_name 
-            from Posts
-            where user_name = (?)
+            from posts
+            where user_name = $1
             order by id desc
             `,
             [body.username]
         );
 
-        const musicIds = UserPosts.map((post) => post.music_id);
+        const musicIds = UserPosts.rows.map((post) => post.music_id);
 
-        const [musicInfoRaw] = await db.query<RawMusicData[]>(
+        const musicInfoRaw = await db.query(
             `
             select id, name, album_art_url, music_url, artist, artist_url, preview_url 
-            from Music
-            where id in (?)
+            from music
+            where id = any($1::int[])
             `,
-            [musicIds.join(",")]
+            [musicIds]
         );
 
-        const musicInfo: MappedTrack[] = musicInfoRaw.map(music => ({
+
+
+        const musicInfo: MappedTrack[] = musicInfoRaw.rows.map(music => ({
             id: music.id,
             name: music.name,
             albumArt: music.album_art_url,
