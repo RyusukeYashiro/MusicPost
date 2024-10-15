@@ -62,7 +62,7 @@ export const getLatestPost = async () => {
             `
             select id, name, album_art_url, music_url, artist, artist_url, preview_url 
             from music
-            where id = any($1::int[])
+            where id = any($1::varchar[])
             `,
             [musicIds]
         );
@@ -116,7 +116,7 @@ export const getUserInfo = async (): Promise<string | JwtPayload | undefined> =>
 
 export const getUserData = async (holdName: string) => {
 
-    // console.log('確認', holdName);
+    console.log('確認', holdName);
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/userSetProf`, {
         method: 'POST',
         headers: {

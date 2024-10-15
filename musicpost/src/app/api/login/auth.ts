@@ -12,7 +12,7 @@ const authenticateToken = (req: NextRequest) => {
         }
 
         const decoded = jwt.verify(token, Config.jwt.secret);
-        console.log(decoded);
+        console.log("これはdecodeしたもの", decoded);
         return decoded;
     } catch (err) {
         console.error("this is error in authToken");

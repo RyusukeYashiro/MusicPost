@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
 
     //重複しているユーザーがいないかチェックする処理
     //検索を早めるためにlimit 1をつける
-    const exitUser = await db.query("SELECT * FROM users WHERE name = $1 limit 1", [validation.username]);
+    const exitUser = await db.query("SELECT * FROM users WHERE user_name = $1 limit 1", [validation.username]);
 
     if (Array.isArray(exitUser.rows) && exitUser.rows.length > 0) {
       return NextResponse.json({ error: "ユーザーはすでに存在しています" }, { status: 409 });
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(validation.password, 10);
     console.log("hash化したパス", hashedPassword);
 
-    const resuletPass = await db.query("insert into users (name , password , email) value ($1 , $2 ,$3)", [
+    const resuletPass = await db.query("insert into users (user_name , password , email) values ($1 , $2 ,$3)", [
       validation.username,
       hashedPassword,
       validation.email,

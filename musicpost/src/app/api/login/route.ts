@@ -13,7 +13,7 @@ import { Config } from "./config";
 
 interface User {
     id: number;
-    name: string;
+    user_name: string;
     password: string;
 }
 
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         console.log("リクエストをオブジェクトとする", body);
 
         // const [isRegistered] = await db.query<User[]>("select * from users where name = ? limit 1", [body.username]);
-        const result = await db.query<User>("select * from users where name = $1 limit 1", [body.username]);
+        const result = await db.query<User>("select * from users where user_name = $1 limit 1", [body.username]);
         const isRegistered: User[] = result.rows;
 
         if (isRegistered.length === 0) {
@@ -42,7 +42,6 @@ export async function POST(request: NextRequest) {
 
         const user = isRegistered[0]!;
         console.log(user);
-        console.log("this is pass", body.password);
         const isPass = await bcrypt.compare(body.password, user.password);
         console.log(isPass);
 
@@ -53,7 +52,7 @@ export async function POST(request: NextRequest) {
 
         //暗号化する中身
         const payload = {
-            username: user.name,
+            username: user.user_name,
             id: user.id,
         };
 

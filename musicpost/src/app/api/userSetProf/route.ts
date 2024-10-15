@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
             where user_name = $1
             order by id desc
             `,
-            [body.username]
+            [String(body.username)]
         );
 
         const musicIds = UserPosts.rows.map((post) => post.music_id);
@@ -25,12 +25,10 @@ export async function POST(request: NextRequest) {
             `
             select id, name, album_art_url, music_url, artist, artist_url, preview_url 
             from music
-            where id = any($1::int[])
+            where id = any($1::varchar[])
             `,
             [musicIds]
         );
-
-
 
         const musicInfo: MappedTrack[] = musicInfoRaw.rows.map(music => ({
             id: music.id,

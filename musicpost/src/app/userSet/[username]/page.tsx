@@ -72,14 +72,16 @@ const UserSet = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            console.log("確認:これはusernameです", holdName);
             if (holdName) {
                 try {
                     const UserData = await getUserData(holdName);
+                    console.log('userdataの確認', UserData);
                     setUserAllPost({
-                        posts: UserData.UserPosts, // UserPostsのデータを設定
+                        posts: UserData.UserPosts.rows, // UserPostsのデータを設定
                         musicInfo: UserData.musicInfo // musicInfoのデータを設定
                     });
-                    setPostCount(UserData.UserPosts.length); // 投稿数を設定
+                    setPostCount(UserData.UserPosts.rows.length); // 投稿数を設定
                 } catch (err) {
                     console.error("Error fetching user data:", err);
                 }
@@ -147,7 +149,7 @@ const UserSet = () => {
                     </div>
                     <div className='user-post'>
                         <ul className='user-post-list' >
-                            {UserAllPost?.posts?.map((post) => {
+                            {UserAllPost.posts.map((post) => {
                                 const music = UserAllPost.musicInfo.find((m) => m.id === post.music_id);
                                 if (!music) return null;
                                 return (

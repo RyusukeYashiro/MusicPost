@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
         if (!existingMusic.rows || existingMusic.rows.length === 0) {
             const resultInsert = await db.query(
-                "insert into music (id , name , album_art_url , music_url, artist , artist_url , preview_url) value ($1,$2,$3,$4,$5,$6,$7)",
+                "insert into music (id , name , album_art_url , music_url, artist , artist_url , preview_url) values ($1,$2,$3,$4,$5,$6,$7)",
                 [
                     ms.id,
                     ms.name,
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        const postMusic = await db.query("insert into posts (content , user_id , user_name , music_id) value ($1 , $2 , $3 , $4)", [
+        const postMusic = await db.query("insert into posts (content , user_id , user_name , music_id) values($1 , $2 , $3 , $4)", [
             postContent,
             user.id,
             user.username,
