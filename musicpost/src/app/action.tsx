@@ -149,7 +149,7 @@ export const deltePost = async (selectContent: (PostContent | null)) => {
             [selectContent.id]
         );
 
-        if ('affectedRows' in result.rows && result.rows.affectedRows === 0) {
+        if (result.rowCount === 0) {
             return { success: false, message: "削除対象の投稿が見つかりませんでした" };
         }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import SidebarData from "../SideBar/SidebarData";
+import SidebarData from "./SidebarData";
 import Link from "next/link";
 import "../../styles/Sidebar.css";
 import { JwtPayload } from "jsonwebtoken";

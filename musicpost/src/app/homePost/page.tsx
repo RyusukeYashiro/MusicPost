@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../../components/SideBar/Sidebar";
+import Sidebar from "../../components/sideBar/Sidebar";
 import HomePost from "../../components/homePost/homePost";
 import { getLatestPost, getUserInfo } from "../action";
 

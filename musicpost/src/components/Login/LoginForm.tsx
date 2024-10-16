@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ErrorType } from "../SignUp/SignUpForm";
+import { ErrorType } from "../signUp/SignUpForm";
 import "../../styles/login.css";
 
 const LoginForm = () => {

@@ -7,7 +7,7 @@ const Home = () => {
             <div className="content">
                 <h1>ようこそmusicPostへ!</h1>
                 <div className="button-container">
-                    <Link href="/Login">
+                    <Link href="/login">
                         <button className="button login-button">ログイン</button>
                     </Link>
                     <Link href="/signUp">

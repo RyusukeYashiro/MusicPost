@@ -31,7 +31,8 @@ export async function POST(request: NextRequest) {
       validation.email,
     ]);
 
-    if (resuletPass.rows && "affectedRows" in resuletPass.rows && resuletPass.rows.affectedRows as number > 0) {
+    //postgresqlではaffectedRowsの代わりにrowCountを使用する(("affectedRows" in musicResult))
+    if (resuletPass.rowCount && resuletPass.rowCount > 0) {
       return NextResponse.json({ message: "ユーザーが正しく作成されました" }, { status: 200 });
     } else {
       return NextResponse.json({ error: "ユーザーの作成に失敗しました" }, { status: 500 });

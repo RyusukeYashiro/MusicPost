@@ -17,10 +17,10 @@ type UserInfo = string | JwtPayload | null | undefined;
 const SidebarData = (name: UserInfo): SidebarItem[] => {
   const userLink = (() => {
     if (!name) {
-      return '/Login';
+      return '/login';
     }
     const username = typeof name === 'string' ? name : name.username;
-    return username ? `/userSet/${encodeURIComponent(username)}` : '/Login';
+    return username ? `/userSet/${encodeURIComponent(username)}` : '/login';
   })();
 
   return [

@@ -61,7 +61,7 @@ const SignUpForm = () => {
                 }
             } else {
                 console.log("sucuess! register!");
-                router.push("/Login");
+                router.push("/login");
             }
         } catch (error: unknown) {
             if (error instanceof Error) {

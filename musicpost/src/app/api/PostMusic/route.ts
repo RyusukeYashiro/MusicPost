@@ -40,9 +40,7 @@ export async function POST(request: NextRequest) {
                 ],
             );
 
-            const musicResult = resultInsert.rows;
-
-            if (!musicResult && !("affectedRows" in musicResult)) {
+            if (!resultInsert.rows && resultInsert.rowCount === 0) {
                 return NextResponse.json({ message: "failed creating music db!" }, { status: 500 });
             }
         }
@@ -54,7 +52,7 @@ export async function POST(request: NextRequest) {
             ms.id,
         ]);
 
-        if (!postMusic.rows && !("affectedRows" in postMusic.rows)) {
+        if (!postMusic.rows && postMusic.rowCount === 0) {
             return NextResponse.json({ message: "failed creating post db!" }, { status: 500 });
         }
 
