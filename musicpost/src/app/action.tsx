@@ -138,7 +138,7 @@ export const getUserData = async (holdName: string) => {
 
 //mysqlのdelete用の型定義を行
 
-export const deltePost = async (selectContent: (PostContent | null)) => {
+export const deletePost = async (selectContent: (PostContent | null)) => {
     try {
         if (!selectContent?.id) {
             throw new Error("投稿IDが選択されていません");

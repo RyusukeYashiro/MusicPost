@@ -1,14 +1,14 @@
 'use client';
 
-import { deltePost, getUserData } from '@/app/action';
+import { deletePost, getUserData } from '@/app/action';
 import { MappedTrack } from '@/types/mappedTrack';
 import { Post } from '@/types/serverType';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import Modal from 'react-modal';
-import noimage from "../../../../public/images/3.png";
-import { handlePlayPause, stopAudio } from '@/utils/Musichandle';
+import noImage from "../../../../public/images/3.png";
+import { handlePlayPause, stopAudio } from '../../../utils/MusicHandle';
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import '../../../styles/UserSet.css';
@@ -76,7 +76,7 @@ const UserSet = () => {
             if (holdName) {
                 try {
                     const UserData = await getUserData(holdName);
-                    console.log('userdataの確認', UserData);
+                    console.log('userDataの確認', UserData);
                     setUserAllPost({
                         posts: UserData.UserPosts.rows, // UserPostsのデータを設定
                         musicInfo: UserData.musicInfo // musicInfoのデータを設定
@@ -92,7 +92,7 @@ const UserSet = () => {
     }, [holdName]);
 
     const handleDelete = async () => {
-        const result = await deltePost(selectContent);
+        const result = await deletePost(selectContent);
         if (result) {
             //ここで状態変数をリロードを挟まずに削除する
             setUserAllPost((prevPost) => ({
@@ -167,7 +167,7 @@ const UserSet = () => {
                                                 ></input>
                                                 <Image
                                                     alt={`Album art for ${music.albumArt}`}
-                                                    src={music.albumArt || noimage}
+                                                    src={music.albumArt || noImage}
                                                     width={80}
                                                     height={80}
                                                     className='rounded-md'

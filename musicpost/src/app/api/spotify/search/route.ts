@@ -10,8 +10,8 @@ export async function POST(request: NextRequest) {
         }
         console.log("Doing confirm token ", token);
         //URLで使用するためにエンコードする処理。
-        const changequery = encodeURIComponent(query);
-        const response = await fetch(`https://api.spotify.com/v1/search?q=${changequery}&type=track&limit=40`, {
+        const changeQuery = encodeURIComponent(query);
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${changeQuery}&type=track&limit=40`, {
             headers: {
                 Authorization: "Bearer " + token,
             },
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
         }
 
         const data = await response.json();
-        console.log("this is scusecc!", data);
+        console.log("this is success!", data);
         return NextResponse.json(data, { status: 200 });
     } catch (error) {
         console.error("Error searching", error);

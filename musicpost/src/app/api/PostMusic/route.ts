@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: "failed creating post db!" }, { status: 500 });
         }
 
-        return NextResponse.json({ message: "scusess! insert!" }, { status: 200 });
+        return NextResponse.json({ message: "success! insert!" }, { status: 200 });
     } catch (err) {
         console.error("Error searching", err);
         return NextResponse.json({ err: "failed to insert db" }, { status: 500 });

@@ -25,14 +25,14 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(validation.password, 10);
     console.log("hash化したパス", hashedPassword);
 
-    const resuletPass = await db.query("insert into users (user_name , password , email) values ($1 , $2 ,$3)", [
+    const resultPass = await db.query("insert into users (user_name , password , email) values ($1 , $2 ,$3)", [
       validation.username,
       hashedPassword,
       validation.email,
     ]);
 
     //postgresqlではaffectedRowsの代わりにrowCountを使用する(("affectedRows" in musicResult))
-    if (resuletPass.rowCount && resuletPass.rowCount > 0) {
+    if (resultPass.rowCount && resultPass.rowCount > 0) {
       return NextResponse.json({ message: "ユーザーが正しく作成されました" }, { status: 200 });
     } else {
       return NextResponse.json({ error: "ユーザーの作成に失敗しました" }, { status: 500 });

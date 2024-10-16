@@ -1,6 +1,6 @@
-import PostModal from "../../components/postCreate/Postmodal";
+import PostModal from '../../components/postCreate/PostModal'
 
-const createpost = () => {
+const createPost = () => {
   return (
     <div className="modalCover">
       <PostModal />
@@ -8,4 +8,4 @@ const createpost = () => {
   );
 };
 
-export default createpost;
+export default createPost;

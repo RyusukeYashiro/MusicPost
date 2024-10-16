@@ -3,11 +3,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getLatestPost } from "@/app/action";
 import { MappedTrack } from "@/types/mappedTrack";
-import { handlePlayPause, stopAudio } from "@/utils/Musichandle";
+import { handlePlayPause, stopAudio } from "../../utils/MusicHandle";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import Image from "next/image";
-import noimage from "../../../public/images/3.png";
+import noImage from "../../../public/images/3.png";
 import { usePathname } from "next/navigation";
 import '../../styles/HomePost.css';
 import PersonIcon from '@mui/icons-material/Person';
@@ -74,7 +74,7 @@ const HomePost: React.FC<HomePostProps> = ({ initialPosts }) => {
                                     <div className="music-select">
                                         <Image
                                             alt={`Album art for ${music.name}`}
-                                            src={music.albumArt || noimage}
+                                            src={music.albumArt || noImage}
                                             width={80}
                                             height={80}
                                             className="rounded-md"

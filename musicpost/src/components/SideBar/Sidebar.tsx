@@ -20,7 +20,7 @@ const Sidebar = (username: SidebarProps) => {
   // SidebarData を関数として呼び出し、結果を配列として使用
   console.log("this is username in Sidebar", username);
   const sidebarItems = SidebarData(username.username);
-  const sideberRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -31,7 +31,7 @@ const Sidebar = (username: SidebarProps) => {
 
     const handleOtherClick = (event: MouseEvent) => {
       //refはサイドバーのDOM要素をさしており、これがcontainsで指定した要素に入っていなかったら。つまり外側
-      if (sideberRef.current && !(sideberRef.current.contains(event.target as Node))) {
+      if (sidebarRef.current && !(sidebarRef.current.contains(event.target as Node))) {
         setOpenMenu(false); // サイドバー外をクリックしたら閉じる
       }
     };
@@ -48,7 +48,7 @@ const Sidebar = (username: SidebarProps) => {
   }
 
   return (
-    <div ref={sideberRef} className={`Sidebar ${openMenu ? 'open-side' : 'close-side'}`}>
+    <div ref={sidebarRef} className={`Sidebar ${openMenu ? 'open-side' : 'close-side'}`}>
       <button onClick={handleMenu}
         className="Side-menu"
       >

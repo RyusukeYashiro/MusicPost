@@ -1,6 +1,6 @@
 import React from "react";
 
-const SideabarIcon = () => {
+const SidebarIcon = () => {
   return (
     <div className="sidebarIcon">
       <p>name</p>
@@ -8,4 +8,4 @@ const SideabarIcon = () => {
   );
 };
 
-export default SideabarIcon;
+export default SidebarIcon;

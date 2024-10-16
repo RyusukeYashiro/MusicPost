@@ -3,14 +3,14 @@
 import { useRouter } from "next/navigation";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
-import "../../styles/Postmodal.css";
+import "../../styles/PostModal.css";
 import Image from "next/image";
-import Loadiong from "@/app/loading";
+import Loading from "@/app/loading";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { SpotifyApiTrack } from "../../types/spotifyApiTrack";
 import { MappedTrack } from "../../types/mappedTrack";
-import { handlePlayPause, stopAudio } from "@/utils/Musichandle";
+import { stopAudio, handlePlayPause } from "../../utils/MusicHandle";
 
 const PostModal: React.FC = () => {
 
@@ -167,7 +167,7 @@ const PostModal: React.FC = () => {
                         <button type="submit" aria-label="検索" className="search-btn"></button>
                     </form>
 
-                    <Suspense fallback={<Loadiong />}>
+                    <Suspense fallback={<Loading />}>
                         <ul className="music-list">
                             {result.map((track) => (
                                 <li key={track.id} className="music-item">
@@ -201,7 +201,7 @@ const PostModal: React.FC = () => {
                                     </p>
                                     {track.preview_url && (
                                         <button
-                                            className="musicp-play-pause"
+                                            className="music-play-pause"
                                             onClick={() => {
                                                 handlePlayPause(track, playingTrackId, setPlayingTrackId, audioRef);
                                             }}
