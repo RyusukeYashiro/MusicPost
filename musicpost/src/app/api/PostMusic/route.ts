@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
         const user = authenticateToken(request) as DecodedUser | null;
         if (!user) {
             console.error('認証に失敗したのでログインし直してください')
+            alert('認証に失敗したのでログインし直してください')
             return NextResponse.json({ error: "認証に失敗しました。再度ログインしてください。" }, { status: 401 });
         }
 
